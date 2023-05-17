@@ -1,0 +1,37 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql
+spec:
+  minReadySeconds: 10
+  serviceName: mysql
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      name: mysql
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - name: Mysql-cont
+          image: mysql
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+            - name: mysql-pvol
+              mountPath: var/lib/mysql
+          env: 
+            - name: MYSQL_ROOT_PASSWORD
+              value: Gshravani@143
+            - name: MYSQL_DATABASE
+              value: employees
+            - name: MYSQL_USER
+              value: shravani
+            - name: MYSQL_PASSWORD
+              value: Gshravani@143
+      volumes:
+        - name: mysql-pvol
